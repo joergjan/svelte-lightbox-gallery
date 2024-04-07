@@ -2,13 +2,18 @@
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 	import GaleryImage from './GaleryImage.svelte';
+	import LightboxImage from './LightboxImage.svelte';
 
 	export let photos: string[] = [];
-	export let amount: number = 12;
+	export let amount: number = 0;
 
 	let lightboxActive = false;
 	let activeIndex = 0;
 	let showMore = false;
+	let mounted = false;
+
+	let scrollTop: number = 0;
+	let scrollLeft: number = 0;
 
 	$: {
 		if (lightboxActive) {
@@ -28,6 +33,8 @@
 	}
 
 	onMount(() => {
+		mounted = true;
+
 		window.addEventListener('keyup', (event) => {
 			if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
 				event.preventDefault();
@@ -47,6 +54,28 @@
 		});
 	});
 
+	function disableScroll() {
+		if (mounted) {
+			scrollTop = window.pageYOffset || window.document.documentElement.scrollTop;
+			(scrollLeft = window.pageXOffset || window.document.documentElement.scrollLeft),
+				(window.onscroll = function () {
+					window.scrollTo(scrollLeft, scrollTop);
+				});
+		}
+	}
+
+	function enableScroll() {
+		if (mounted) {
+			window.onscroll = function () {};
+		}
+	}
+
+	$: if (lightboxActive) {
+		disableScroll();
+	} else {
+		enableScroll();
+	}
+
 	function prev() {
 		activeIndex--;
 		if (activeIndex < 0) {
@@ -63,11 +92,9 @@
 </script>
 
 {#if photos.length != 0}
-	<ul
-		class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 grid-rows-auto overflow-hidden"
-	>
-		{#each photos.slice(0, showMore ? photos.length : 12) as src, no}
-			<li class="relative hover:scale-102 h-auto pb-4">
+	<ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 grid-rows-auto">
+		{#each photos.slice(0, showMore ? photos.length : amount > 0 ? amount : photos.length) as src, no}
+			<li class="relative hover:scale-[1.03] hover:shadow-lg transition-all duration-300 h-auto">
 				<div>
 					<GaleryImage {src} />
 				</div>
@@ -90,7 +117,7 @@
 		{/each}
 	</ul>
 
-	{#if photos.length > 12}
+	{#if photos.length > amount && amount > 0}
 		{#if !showMore}
 			<div class="flex justify-center">
 				<button
@@ -129,23 +156,24 @@
 				: 'hidden'}"
 		/>
 		<div class="fixed top-0 left-0 w-screen h-screen z-40">
+			<button
+				class="fixed z-40 top-0 left-0 right-0 bottom-0 w-full h-full"
+				on:click={() => {
+					close();
+				}}
+			></button>
 			<div class="absolute inset-0 flex items-center justify-center">
-				<img
-					loading="lazy"
-					src={photos[activeIndex]}
-					alt=""
-					class="max-w-full lg:max-w-3xl md:max-w-2xl max-h-[90%] md:max-h-full rounded-sm md:rounded-md md:pb-0 pb-32"
-				/>
+				<LightboxImage src={photos[activeIndex]} />
 				<button
-					class="absolute md:top-5 md:right-5 md:bottom-auto sm:bottom-12 bottom-24 text-3xl m-4 text-white hover:text-gray-400"
+					class="absolute md:top-5 z-50 md:right-7 md:bottom-auto sm:bottom-12 bottom-24 text-3xl m-4 text-white hover:text-gray-400"
 					on:click={close}>&#x2715</button
 				>
 				<button
-					class="absolute md:bottom-1/2 md:left-5 sm:bottom-12 bottom-24 left-4 m-4 text-white hover:text-gray-400 text-3xl"
+					class="absolute md:bottom-1/2 z-50 md:left-5 sm:bottom-12 bottom-24 left-4 m-4 text-white hover:text-gray-400 text-3xl"
 					on:click={prev}>&#x2329;</button
 				>
 				<button
-					class="absolute md:bottom-1/2 md:right-5 sm:bottom-12 bottom-24 right-4 m-4 text-white hover:text-gray-400 text-3xl"
+					class="absolute md:bottom-1/2 z-50 md:right-5 sm:bottom-12 bottom-24 right-4 m-4 text-white hover:text-gray-400 text-3xl"
 					on:click={next}
 				>
 					&#x232a;

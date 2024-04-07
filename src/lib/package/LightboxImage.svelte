@@ -18,12 +18,10 @@
 {:else}
 	<img
 		in:fade
-		class="h-48 w-full rounded-md shadow-md object-cover object-center"
-		{src}
 		loading="lazy"
-		srcset="{src} 480w, {src} 800w"
-		sizes="(max-width: 600px) 480px, 800px"
+		{src}
 		alt=""
+		class="max-w-full lg:max-w-3xl md:max-w-2xl max-h-[90%] md:max-h-full rounded-sm md:rounded-md md:pb-0 pb-32"
 	/>
 {/if}
 
