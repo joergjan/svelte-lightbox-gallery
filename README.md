@@ -25,7 +25,7 @@ visit [npm.jan-joerg.ch/svelte-lightbox-gallery](https://npm.jan-joerg.ch/svelte
 	];
 </script>
 
-<SvelteGallery {photos} />
+<Gallery {photos} />
 ```
 
 ## don't forget this!
@@ -82,7 +82,7 @@ export interface GalleryProps {
 </script>
 
 <div class="p-7">
-	<Galery {photos} amount={12} dark={true} buttonColor="bg-green-500 hover:bg-green-600" />
+	<Gallery {photos} amount={12} dark={true} buttonColor="bg-green-500 hover:bg-green-600" />
 </div>
 ```
 
