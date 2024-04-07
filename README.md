@@ -28,5 +28,20 @@ visit [npm.jan-joerg.ch/svelte-lightbox-gallery](https://npm.jan-joerg.ch/svelte
 <SvelteGallery {photos} />
 ```
 
+### don't forget this!
+
+since this library works with tailwindcss, you have to adjust your tailwind.config.js to include the gallery. Check out the [tailwind documentation](​​https://www.tailwindcss.com/docs/content-configuration#working-with-third-party-libraries)
+
+```typescript
+/** @type {import('tailwindcss').Config} */
+
+module.exports = {
+	content: [
+		'./src/**/*.{html,js,svelte,ts}',
+		'./node_modules/svelte-lightbox-gallery/dist/*.svelte'
+	]
+};
+```
+
 ![gallery](image.png)
 ![lightbox](image-1.png)
