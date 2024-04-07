@@ -114,6 +114,7 @@
 				overflow: -moz-scrollbars-none;
 				-ms-overflow-style: none; /* IE and Edge */
 				scrollbar-width: none; /* Firefox */
+				padding-right: 15px;
 			}
 		</style>
 	{/if}
