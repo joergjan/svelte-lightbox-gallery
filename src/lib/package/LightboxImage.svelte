@@ -18,7 +18,6 @@
 {:else}
 	<img
 		in:fade
-		loading="lazy"
 		{src}
 		alt=""
 		class="max-w-full lg:max-w-3xl md:max-w-2xl max-h-[90%] md:max-h-full rounded-sm md:rounded-md md:pb-0 pb-32"
