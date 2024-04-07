@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Loader from './Loader.svelte';
-	export let src: string;
 	import { fade } from 'svelte/transition';
 	import { createLoadObserver } from './util';
 
+	export let src: string = '';
 	let loaded = false;
 
 	const onload = createLoadObserver(() => {

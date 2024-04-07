@@ -1,38 +1,32 @@
-# create-svelte
-
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
-
-## Creating a project
-
-If you're seeing this, you've probably already done this step. Congrats!
+# svelte-lightbox-gallery
 
 ```bash
-# create a new project in the current directory
-npm create svelte@latest
-
-# create a new project in my-app
-npm create svelte@latest my-app
+npm i -D svelte-lightbox-gallery
 ```
 
-## Developing
+## What is svelte-lightbox-gallery?
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+svelte-lightbox-gallery is an easy to use gallery for your svelte project. it doesn't offer customisation options as npm package, for customisation consider downloading it from my [github repo](https://github.com/joergjan/svelte-image-gallery) and changing it on your own
 
-```bash
-npm run dev
+## Preview
 
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+visit [npm.jan-joerg.ch/svelte-lightbox-gallery](https://npm.jan-joerg.ch/svelte-lightbox-gallery)
+
+## Usage
+
+```svelte
+<script lang="ts">
+	import SvelteGallery from 'svelte-image-gallery/SvelteGallery.svelte';
+
+	let photos: string[] = [
+		'https://source.unsplash.com/random/?city,night',
+		'https://source.unsplash.com/random/?city,animal',
+        ...
+	];
+</script>
+
+<SvelteGallery {photos} />
 ```
 
-## Building
-
-To create a production version of your app:
-
-```bash
-npm run build
-```
-
-You can preview the production build with `npm run preview`.
-
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+![gallery](image.png)
+![lightbox](image-1.png)
