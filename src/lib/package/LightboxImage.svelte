@@ -33,3 +33,9 @@
 	sizes="(max-width: 600px) 480px, 800px"
 	alt=""
 />
+
+<style>
+	img {
+		pointer-events: none;
+	}
+</style>

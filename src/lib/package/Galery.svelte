@@ -3,6 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import GaleryImage from './GaleryImage.svelte';
 	import LightboxImage from './LightboxImage.svelte';
+	import { swipe } from 'svelte-gestures';
 
 	export let photos: string[] = [];
 	export let amount: number = 0;
@@ -89,6 +90,14 @@
 			activeIndex = 0;
 		}
 	}
+
+	function handler(event: { detail: { direction: string } }) {
+		if (event.detail.direction === 'left') {
+			next();
+		} else if (event.detail.direction === 'right') {
+			prev();
+		}
+	}
 </script>
 
 {#if photos.length != 0}
@@ -155,7 +164,11 @@
 				? 'block'
 				: 'hidden'}"
 		/>
-		<div class="fixed top-0 left-0 w-screen h-screen z-40">
+		<div
+			use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }}
+			on:swipe={handler}
+			class="fixed top-0 left-0 w-screen h-screen z-40"
+		>
 			<button
 				class="fixed z-40 top-0 left-0 right-0 bottom-0 w-full h-full"
 				on:click={() => {
@@ -165,15 +178,15 @@
 			<div class="absolute inset-0 flex items-center justify-center">
 				<LightboxImage src={photos[activeIndex]} />
 				<button
-					class="absolute md:top-5 z-50 md:right-7 md:bottom-auto sm:bottom-12 bottom-24 text-3xl m-4 text-white hover:text-gray-400"
+					class="absolute lg:top-5 z-50 lg:right-7 lg:bottom-auto md:bottom-12 bottom-24 text-3xl m-4 text-white hover:text-gray-400"
 					on:click={close}>&#x2715</button
 				>
 				<button
-					class="absolute md:bottom-1/2 z-50 md:left-5 sm:bottom-12 bottom-24 left-4 m-4 text-white hover:text-gray-400 text-3xl"
+					class="absolute lg:bottom-1/2 z-50 lg:left-5 md:bottom-12 bottom-24 left-4 m-4 text-white hover:text-gray-400 text-3xl"
 					on:click={prev}>&#x2329;</button
 				>
 				<button
-					class="absolute md:bottom-1/2 z-50 md:right-5 sm:bottom-12 bottom-24 right-4 m-4 text-white hover:text-gray-400 text-3xl"
+					class="absolute lg:bottom-1/2 z-50 lg:right-5 md:bottom-12 bottom-24 right-4 m-4 text-white hover:text-gray-400 text-3xl"
 					on:click={next}
 				>
 					&#x232a;
