@@ -102,28 +102,39 @@
 	}
 </script>
 
+<svelte:head>
+	{#if lightboxActive}
+		<style>
+			::-webkit-scrollbar {
+				display: none;
+			}
+
+			/* Hide scrollbar for IE, Edge and Firefox */
+			html {
+				overflow: -moz-scrollbars-none;
+				-ms-overflow-style: none; /* IE and Edge */
+				scrollbar-width: none; /* Firefox */
+			}
+		</style>
+	{/if}
+</svelte:head>
+
 {#if photos.length != 0}
 	<ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 grid-rows-auto">
 		{#each photos.slice(0, showMore ? photos.length : amount > 0 ? amount : photos.length) as src, no}
 			<li class="relative hover:scale-[1.03] hover:shadow-lg transition-all duration-300 h-auto">
-				<div>
-					<GaleryImage {src} {dark} />
-				</div>
-				<div
-					class="opacity-0 pointer-events-none !hover:opacity-100 w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-3xl text-white bold"
-				>
-					vergrössern
-				</div>
-
 				<button
-					class="absolute inset-0 hover:bg-opacity-75 transition duration-300"
+					class="absolute top-0 bottom-0 right-0 left-0 inset-0 w-full h-full hover:bg-opacity-75 transition duration-300"
 					on:click={() => {
 						activeIndex = no;
 						lightboxActive = true;
 					}}
-				>
-					<span class="sr-only">View image {no + 1}</span>
-				</button>
+				></button>
+				<span class="sr-only">View image {no + 1}</span>
+
+				<div>
+					<GaleryImage {src} {dark} />
+				</div>
 			</li>
 		{/each}
 	</ul>

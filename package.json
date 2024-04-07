@@ -1,9 +1,9 @@
 {
 	"name": "svelte-lightbox-gallery",
 	"license": "MIT",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"author": "Jan Jörg",
-	"description": "svelte-lightbox-gallery is an easy to use gallery for your svelte project. it doesn't offer a lot of customisation options by default, for customisation consider downloading it from my [github repo](https://github.com/joergjan/svelte-image-gallery) and changing it on your own. The package utilizes tailwindcss for styling.",
+	"description": "svelte-lightbox-gallery is an easy to use gallery for your svelte project.",
 	"main": "index.js",
 	"type": "module",
 	"scripts": {

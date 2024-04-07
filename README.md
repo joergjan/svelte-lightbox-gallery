@@ -15,7 +15,7 @@ visit [npm.jan-joerg.ch/svelte-lightbox-gallery](https://npm.jan-joerg.ch/svelte
 ## Usage
 
 ```svelte
-<script lang="ts">
+<script>
 	import Gallery from 'svelte-lightbox-gallery';
 
 	let photos: string[] = [
