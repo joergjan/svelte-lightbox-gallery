@@ -1,5 +1,5 @@
 <script>
-	import Galery from '$lib/Gallery.svelte';
+	import Gallery from '$lib/Gallery.svelte';
 
 	let photos = [
 		'https://source.unsplash.com/random/?city,night',
@@ -97,5 +97,5 @@
 </script>
 
 <div class="p-7">
-	<Galery {photos} amount={12} dark={true} buttonColor="bg-green-500 hover:bg-green-600" />
+	<Gallery {photos} amount={0} dark={false} buttonColor="bg-green-500 hover:bg-green-600" />
 </div>

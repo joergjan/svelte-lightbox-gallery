@@ -107,7 +107,7 @@
 		{#each photos.slice(0, showMore ? photos.length : amount > 0 ? amount : photos.length) as src, no}
 			<li class="relative hover:scale-[1.03] hover:shadow-lg transition-all duration-300 h-auto">
 				<div>
-					<GaleryImage {src} />
+					<GaleryImage {src} {dark} />
 				</div>
 				<div
 					class="opacity-0 pointer-events-none !hover:opacity-100 w-full h-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 transform text-3xl text-white bold"
@@ -161,7 +161,9 @@
 {#if lightboxActive}
 	<div class="relative z-40" in:fade>
 		<div
-			class="fixed top-0 left-0 w-screen h-screen backdrop-blur-md bg-opacity-80 z-30 transition-opacity duration-300 {activeIndex >= 0 ? 'block'
+			class="fixed top-0 left-0 w-screen h-screen backdrop-blur-md bg-opacity-80 z-30 transition-opacity duration-300 {activeIndex >=
+			0
+				? 'block'
 				: 'hidden'}
 				 {dark ? 'bg-black' : 'bg-gray-800'}"
 		/>
@@ -177,7 +179,7 @@
 				}}
 			></button>
 			<div class="absolute inset-0 flex items-center justify-center">
-				<LightboxImage src={photos[activeIndex]} />
+				<LightboxImage src={photos[activeIndex]} {dark} />
 				<button
 					class="absolute lg:top-5 z-50 lg:right-7 lg:bottom-auto md:bottom-12 bottom-24 text-3xl m-4 text-white hover:text-gray-400"
 					on:click={close}>&#x2715</button

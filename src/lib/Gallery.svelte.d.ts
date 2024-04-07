@@ -5,7 +5,7 @@ export interface GalleryProps {
 	/**
 	 * Array of photo URLs
 	 */
-	photos: Partial<String>[];
+	photos: string[];
 
 	/**
 	 * Amount of photos to before  "show more" button
@@ -16,7 +16,7 @@ export interface GalleryProps {
 	/**
 	 * darkmode (default: false)
 	 */
-	darK?: boolean;
+	dark?: boolean;
 
 	/**
 	 * show more Button color with tailwind syntax, example: "bg-gray-500 hover:bg-gray-600"
@@ -24,4 +24,4 @@ export interface GalleryProps {
 	buttonColor?: string;
 }
 
-export default class Gallery extends SvelteComponentTyped<GalleryProps, {}, {}> {}
+export default class Gallery extends SvelteComponentTyped<GalleryProps> {}

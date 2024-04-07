@@ -3,6 +3,7 @@
 	import { fade } from 'svelte/transition';
 	import { createLoadObserver } from './util';
 
+	export let dark: boolean;
 	export let src: string = '';
 
 	let loaded = false;
@@ -14,7 +15,7 @@
 
 {#if !loaded}
 	<div class="h-48">
-		<Loader />
+		<Loader {dark} />
 	</div>
 {:else}
 	<img

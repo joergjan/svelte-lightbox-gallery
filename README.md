@@ -16,7 +16,7 @@ visit [npm.jan-joerg.ch/svelte-lightbox-gallery](https://npm.jan-joerg.ch/svelte
 
 ```svelte
 <script lang="ts">
-	import Gallery from 'svelte-image-gallery';
+	import Gallery from 'svelte-lightbox-gallery';
 
 	let photos: string[] = [
 		'https://source.unsplash.com/random/?city,night',
