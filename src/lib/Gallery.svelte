@@ -9,11 +9,13 @@
 	export let amount: number = 0;
 	export let dark: boolean = false;
 	export let buttonColor: string = 'bg-gray-500 hover:bg-gray-600';
+	let isMobile = false;
 
 	let lightboxActive = false;
 	let activeIndex = 0;
 	let showMore = false;
 	let mounted = false;
+	let isSafari = false;
 
 	let scrollTop: number = 0;
 	let scrollLeft: number = 0;
@@ -36,8 +38,9 @@
 	}
 
 	onMount(() => {
+		isMobile = window.innerWidth <= 1024;
 		mounted = true;
-
+		isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 		window.addEventListener('keyup', (event) => {
 			if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
 				event.preventDefault();
@@ -103,10 +106,12 @@
 </script>
 
 <svelte:head>
-	{#if lightboxActive}
+	{#if !isSafari && lightboxActive && !isMobile}
 		<style>
 			::-webkit-scrollbar {
-				display: none;
+				-webkit-appearance: none;
+				width: 0;
+				height: 0;
 			}
 
 			/* Hide scrollbar for IE, Edge and Firefox */
@@ -115,6 +120,21 @@
 				-ms-overflow-style: none; /* IE and Edge */
 				scrollbar-width: none; /* Firefox */
 				padding-right: 15px;
+			}
+		</style>
+	{:else if lightboxActive}
+		<style>
+			::-webkit-scrollbar {
+				-webkit-appearance: none;
+				width: 0;
+				height: 0;
+			}
+
+			/* Hide scrollbar for IE, Edge and Firefox */
+			html {
+				overflow: -moz-scrollbars-none;
+				-ms-overflow-style: none; /* IE and Edge */
+				scrollbar-width: none; /* Firefox */
 			}
 		</style>
 	{/if}
@@ -185,27 +205,52 @@
 			class="fixed top-0 left-0 w-screen h-screen z-40"
 		>
 			<button
-				class="fixed z-40 top-0 left-0 right-0 bottom-0 w-full h-full"
+				class="fixed z-30 top-0 left-0 right-0 bottom-0 w-full h-full"
 				on:click={() => {
 					close();
 				}}
 			></button>
 			<div class="absolute inset-0 flex items-center justify-center">
 				<LightboxImage src={photos[activeIndex]} {dark} />
-				<button
-					class="absolute lg:top-5 z-50 lg:right-7 lg:bottom-auto md:bottom-12 bottom-24 text-3xl m-4 text-white hover:text-gray-400"
-					on:click={close}>&#x2715</button
+				<div
+					class="absolute lg:top-3 z-50 lg:right-3 lg:bottom-auto md:bottom-12 bottom-24 text-3xl text-white hover:text-gray-400"
 				>
-				<button
-					class="absolute lg:bottom-1/2 z-50 lg:left-5 md:bottom-12 bottom-24 left-4 m-4 text-white hover:text-gray-400 text-3xl"
-					on:click={prev}>&#x2329;</button
+					<button class="group h-24 w-24 flex items-center justify-center" on:click={close}>
+						&#x2715
+					</button>
+				</div>
+
+				<div
+					class="absolute lg:bottom-1/2 z-50 md:bottom-12 left-4 bottom-24 h-24 w-24 flex items-center justify-center"
 				>
-				<button
-					class="absolute lg:bottom-1/2 z-50 lg:right-5 md:bottom-12 bottom-24 right-4 m-4 text-white hover:text-gray-400 text-3xl"
-					on:click={next}
+					<button class="group h-full w-full flex items-center justify-center" on:click={prev}>
+						<svg
+							class="fill-white group-hover:fill-gray-400"
+							xmlns="http://www.w3.org/2000/svg"
+							height="30"
+							viewBox="0 -960 960 960"
+							width="30"
+						>
+							<path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z" />
+						</svg>
+					</button>
+				</div>
+
+				<div
+					class="absolute lg:bottom-1/2 z-50 md:bottom-12 right-4 bottom-24 h-24 w-24 flex items-center justify-center"
 				>
-					&#x232a;
-				</button>
+					<button class="group h-full w-full flex items-center justify-center" on:click={prev}>
+						<svg
+							class="fill-white group-hover:fill-gray-400"
+							xmlns="http://www.w3.org/2000/svg"
+							height="30"
+							viewBox="0 -960 960 960"
+							width="30"
+						>
+							<path d="m321-80-71-71 329-329-329-329 71-71 400 400L321-80Z" />
+						</svg>
+					</button>
+				</div>
 			</div>
 		</div>
 	</div>
