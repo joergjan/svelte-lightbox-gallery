@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { fade } from 'svelte/transition';
-	export let photos: string[] = [];
+
+	export let image: string[] = [];
 </script>
 
 <div class="relative z-40" in:fade>

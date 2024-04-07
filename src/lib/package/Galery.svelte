@@ -4,6 +4,8 @@
 	import GaleryImage from './GaleryImage.svelte';
 
 	export let photos: string[] = [];
+	export let amount: number = 12;
+
 	let lightboxActive = false;
 	let activeIndex = 0;
 	let showMore = false;
