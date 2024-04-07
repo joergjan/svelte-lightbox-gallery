@@ -1,5 +1,5 @@
 <script>
-	import Galery from '$lib/package/Galery.svelte';
+	import Galery from '$lib/Gallery.svelte';
 
 	let photos = [
 		'https://source.unsplash.com/random/?city,night',

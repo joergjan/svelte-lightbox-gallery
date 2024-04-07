@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
-	import GaleryImage from './GaleryImage.svelte';
+	import GaleryImage from './GalleryImage.svelte';
 	import LightboxImage from './LightboxImage.svelte';
 	import { swipe } from 'svelte-gestures';
 
