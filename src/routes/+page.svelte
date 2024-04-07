@@ -97,5 +97,5 @@
 </script>
 
 <div class="p-7">
-	<Galery {photos} />
+	<Galery {photos} amount={12} dark={true} buttonColor="bg-green-500 hover:bg-green-600" />
 </div>

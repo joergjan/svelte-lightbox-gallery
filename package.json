@@ -1,7 +1,7 @@
 {
 	"name": "svelte-lightbox-gallery",
 	"license": "MIT",
-	"version": "0.1.0",
+	"version": "0.5.0",
 	"author": "Jan Jörg",
 	"description": "Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).",
 	"main": "index.js",
@@ -46,7 +46,7 @@
 		"svelte": "^4.0.0"
 	},
 	"exports": {
-		"./SvelteGallery.svelte": {
+		".": {
 			"types": "./dist/Gallery.svelte.d.ts",
 			"svelte": "./dist/Gallery.svelte"
 		}

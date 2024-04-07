@@ -2,10 +2,26 @@
 import { SvelteComponentTyped } from 'svelte';
 
 export interface GalleryProps {
-	images: Partial<HTMLImageElement>[];
-	rowHeight?: number;
-	gutter?: number;
-	imageComponent?: typeof SvelteComponent;
+	/**
+	 * Array of photo URLs
+	 */
+	photos: Partial<String>[];
+
+	/**
+	 * Amount of photos to before  "show more" button
+	 * 0 => no button, all photos are shown at once
+	 */
+	amount?: number;
+
+	/**
+	 * darkmode (default: false)
+	 */
+	darK?: boolean;
+
+	/**
+	 * show more Button color with tailwind syntax, example: "bg-gray-500 hover:bg-gray-600"
+	 */
+	buttonColor?: string;
 }
 
 export default class Gallery extends SvelteComponentTyped<GalleryProps, {}, {}> {}

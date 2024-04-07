@@ -7,6 +7,8 @@
 
 	export let photos: string[] = [];
 	export let amount: number = 0;
+	export let dark: boolean = false;
+	export let buttonColor: string = 'bg-gray-500 hover:bg-gray-600';
 
 	let lightboxActive = false;
 	let activeIndex = 0;
@@ -130,7 +132,7 @@
 		{#if !showMore}
 			<div class="flex justify-center">
 				<button
-					class="my-4 group bg-fuchsia-500 hover:bg-fuchsia-600 rounded-md text-white px-3 py-2 flex items-center"
+					class="my-4 group {buttonColor} rounded-md text-white px-3 py-2 flex items-center"
 					on:click={() => {
 						showMore = true;
 					}}
@@ -159,10 +161,9 @@
 {#if lightboxActive}
 	<div class="relative z-40" in:fade>
 		<div
-			class="fixed top-0 left-0 w-screen h-screen bg-gray-800 backdrop-blur-md bg-opacity-80 z-30 transition-opacity duration-300 {activeIndex >=
-			0
-				? 'block'
-				: 'hidden'}"
+			class="fixed top-0 left-0 w-screen h-screen backdrop-blur-md bg-opacity-80 z-30 transition-opacity duration-300 {activeIndex >= 0 ? 'block'
+				: 'hidden'}
+				 {dark ? 'bg-black' : 'bg-gray-800'}"
 		/>
 		<div
 			use:swipe={{ timeframe: 300, minSwipeDistance: 60, touchAction: 'pan-y' }}
