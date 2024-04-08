@@ -9,13 +9,11 @@
 	export let amount: number = 0;
 	export let dark: boolean = false;
 	export let buttonColor: string = 'bg-gray-500 hover:bg-gray-600';
-	let isMobile = false;
 
 	let lightboxActive = false;
 	let activeIndex = 0;
 	let showMore = false;
 	let mounted = false;
-	let isSafari = false;
 
 	let scrollTop: number = 0;
 	let scrollLeft: number = 0;
@@ -38,9 +36,6 @@
 	}
 
 	onMount(() => {
-		isMobile = window.innerWidth <= 1024;
-		mounted = true;
-		isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 		window.addEventListener('keyup', (event) => {
 			if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') {
 				event.preventDefault();
@@ -104,41 +99,6 @@
 		}
 	}
 </script>
-
-<svelte:head>
-	{#if !isSafari && lightboxActive && !isMobile}
-		<style>
-			::-webkit-scrollbar {
-				-webkit-appearance: none;
-				width: 0;
-				height: 0;
-			}
-
-			/* Hide scrollbar for IE, Edge and Firefox */
-			html {
-				overflow: -moz-scrollbars-none;
-				-ms-overflow-style: none; /* IE and Edge */
-				scrollbar-width: none; /* Firefox */
-				padding-right: 15px;
-			}
-		</style>
-	{:else if lightboxActive}
-		<style>
-			::-webkit-scrollbar {
-				-webkit-appearance: none;
-				width: 0;
-				height: 0;
-			}
-
-			/* Hide scrollbar for IE, Edge and Firefox */
-			html {
-				overflow: -moz-scrollbars-none;
-				-ms-overflow-style: none; /* IE and Edge */
-				scrollbar-width: none; /* Firefox */
-			}
-		</style>
-	{/if}
-</svelte:head>
 
 {#if photos.length != 0}
 	<ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 grid-rows-auto">

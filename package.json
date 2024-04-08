@@ -1,7 +1,7 @@
 {
 	"name": "svelte-lightbox-gallery",
 	"license": "MIT",
-	"version": "1.0.3",
+	"version": "1.0.5",
 	"author": "Jan Jörg",
 	"description": "svelte-lightbox-gallery is an easy to use gallery for your svelte project.",
 	"main": "index.js",
