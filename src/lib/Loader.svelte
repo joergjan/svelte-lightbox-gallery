@@ -1,10 +1,12 @@
 <script lang="ts">
-	export let dark: boolean;
+	export let dark: boolean; // dark mode
 </script>
 
 <div class="flex items-center justify-center h-full">
 	<span class="loader" style="border-top: 3px solid {dark ? '#FFFFFF' : '#000'};"></span>
 </div>
+
+<!-- animation while the photos are loading -->
 
 <style>
 	.loader {

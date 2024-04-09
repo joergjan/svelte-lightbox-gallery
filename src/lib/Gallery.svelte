@@ -1,39 +1,20 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
+	import { browser } from '$app/environment';
 	import { fade } from 'svelte/transition';
-	import GaleryImage from './GalleryImage.svelte';
-	import LightboxImage from './LightboxImage.svelte';
 	import { swipe } from 'svelte-gestures';
 
-	export let photos: string[] = [];
-	export let amount: number = 0;
-	export let dark: boolean = false;
-	export let buttonColor: string = 'bg-gray-500 hover:bg-gray-600';
+	import GaleryImage from './GalleryImage.svelte';
+	import LightboxImage from './LightboxImage.svelte';
 
-	let lightboxActive = false;
-	let activeIndex = 0;
-	let showMore = false;
-	let mounted = false;
+	export let photos: string[] = []; // array of image urls for gallery
+	export let amount: number = 0; // amount of images to show in gallery before showing "show more" button
+	export let dark: boolean = false; // dark mode
+	export let buttonColor: string = 'bg-gray-500 hover:bg-gray-600'; // color of the "show more" button
 
-	let scrollTop: number = 0;
-	let scrollLeft: number = 0;
-
-	$: {
-		if (lightboxActive) {
-			onMount(() => {
-				document.body.classList.add('overflow-hidden');
-			});
-		} else {
-			onMount(() => {
-				document.body.classList.remove('overflow-hidden');
-			});
-		}
-	}
-
-	function close() {
-		activeIndex = -1;
-		lightboxActive = false;
-	}
+	let lightboxActive = false; // lightbox is opened / closed
+	let activeIndex = 0; // index of the currently shown image in the lightbox
+	let showMore = false; // checks if button to show more images is clicked
 
 	onMount(() => {
 		window.addEventListener('keyup', (event) => {
@@ -55,19 +36,21 @@
 		});
 	});
 
+	// disable scrolling when lightbox is active
 	function disableScroll() {
-		if (mounted) {
-			scrollTop = window.pageYOffset || window.document.documentElement.scrollTop;
-			(scrollLeft = window.pageXOffset || window.document.documentElement.scrollLeft),
-				(window.onscroll = function () {
-					window.scrollTo(scrollLeft, scrollTop);
-				});
+		if (browser) {
+			document.body.style.margin = '0';
+			document.body.style.height = '100%';
+			document.body.style.overflow = 'hidden';
 		}
 	}
 
+	// enable scrolling when lightbox is closed
 	function enableScroll() {
-		if (mounted) {
-			window.onscroll = function () {};
+		if (browser) {
+			document.body.style.margin = '';
+			document.body.style.height = '';
+			document.body.style.overflow = '';
 		}
 	}
 
@@ -77,6 +60,13 @@
 		enableScroll();
 	}
 
+	// close the lightbox
+	function close() {
+		activeIndex = -1;
+		lightboxActive = false;
+	}
+
+	// show previous image in lightbox
 	function prev() {
 		activeIndex--;
 		if (activeIndex < 0) {
@@ -84,6 +74,7 @@
 		}
 	}
 
+	// show next image in lightbox
 	function next() {
 		activeIndex++;
 		if (activeIndex >= photos.length) {
@@ -91,6 +82,7 @@
 		}
 	}
 
+	// add swipe gesture to lightbox for mobile devices
 	function handler(event: { detail: { direction: string } }) {
 		if (event.detail.direction === 'left') {
 			next();
@@ -99,6 +91,8 @@
 		}
 	}
 </script>
+
+<!-- this is the gallery -->
 
 {#if photos.length != 0}
 	<ul class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4 grid-rows-auto">

@@ -1,16 +1,21 @@
 <script lang="ts">
-	import Loader from './Loader.svelte';
 	import { fade } from 'svelte/transition';
-	import { createLoadObserver } from './util';
+	import { createLoadObserver } from './util'; // utility function to create a load observer (if image has loaded or not)
 
-	export let dark: boolean;
-	export let src: string = '';
-	let loaded = false;
+	import Loader from './Loader.svelte'; // Loading animation
 
+	export let dark: boolean; // dark mode
+	export let src: string; // image url
+
+	let loaded: boolean = false; // checks if image has loaded
+
+	// checks if image has loaded
 	const onload = createLoadObserver(() => {
 		loaded = true;
 	});
 </script>
+
+<!-- this component shows an animation while the image is loading and then proceeds to show the image -->
 
 {#if !loaded}
 	<div class="h-48">
